@@ -1,0 +1,265 @@
+﻿# A5:ER FORMAT:14
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=divliv
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",7,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=7
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Migu 1M
+FontSize=8
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=6
+RDBMSTypeName=PostgreSQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+BackupRestoreTempTable=0
+CommonField="作成日時","created_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF
+CommonField="作成者","created_by","@VARCHAR(20)","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新日時","updated_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新者","updated_by","@VARCHAR(20)","NOT NULL",,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=1
+CreateOrder=Dependent
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=stock
+LName=銘柄
+Comment=
+TableOption=
+Page=MAIN
+Left=1050
+Top=700
+Field="銘柄ID","stock_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ティッカー","ticker","@VARCHAR(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="国","country","@CHAR(2)","NOT NULL",,"","国コード",$FFFFFFFF,""
+Field="名称","name","@VARCHAR(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="正式名称","formal_name","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="セクター","sector","@VARCHAR(64)",,,"","",$FFFFFFFF,""
+Index==1,ticker ,country 
+EffectMode=Gradation
+Color=$800000
+BkColor=$FFFFFF
+ModifiedDateTime=20201211190332
+Position="MAIN",1050,700,746,315
+ZOrder=1
+
+[Entity]
+PName=dividend
+LName=配当
+Comment=
+TableOption=
+Page=MAIN
+Left=1600
+Top=1350
+Field="配当ID","dividend_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="銘柄ID","stock_id","@DECIMAL(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="入金日","receipt_date","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="金額","amount","@DECIMAL(15)","NOT NULL",,"","JPY",$FFFFFFFF,""
+Field="金額（現地）","amount_local","@DECIMAL(15, 6)","NOT NULL",,"","現地通貨",$FFFFFFFF,""
+Field="通貨コード","currency_code","@CHAR(3)","NOT NULL",,"","通貨コード",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20201211160432
+Position="MAIN",1600,1350,720,267
+ZOrder=2
+
+[Entity]
+PName=rate
+LName=為替レート
+Comment=
+TableOption=
+Page=MAIN
+Left=750
+Top=1400
+Field="レートID","rate_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="基準日","base_date","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="通貨コード","currency_code","@CHAR(3)","NOT NULL",,"","",$FFFFFFFF,""
+Field="レート","rate","@DECIMAL(15, 6)","NOT NULL",,"","",$FFFFFFFF,""
+Index==1,base_date ,currency_code 
+EffectMode=None
+Color=$800000
+BkColor=$FFFFFF
+ModifiedDateTime=20201211160358
+Position="MAIN",750,1400,618,233
+ZOrder=3
+
+[Entity]
+PName=trade
+LName=★まだちゃんと考える（取引）
+Comment=
+TableOption=
+Page=MAIN
+Left=2100
+Top=800
+Field="取引ID","trade_id","","NOT NULL",0,"","",$FFFFFFFF,""
+Field="銘柄ID","stock_id","","NOT NULL",,"","",$FFFFFFFF,""
+Field="売買日","trade_date","","NOT NULL",,"","",$FFFFFFFF,""
+Field="売買区分","buysell","","NOT NULL",,"","",$FFFFFFFF,""
+Field="売買数","quantity","","NOT NULL",,"","",$FFFFFFFF,""
+Field="価格","price","","NOT NULL",,"","",$FFFFFFFF,""
+Field="売買金額","amount","","NOT NULL",,"","",$FFFFFFFF,""
+Field="通貨コード","currency","",,,"","",$FFFFFFFF,""
+Field="証券会社コード","securities_firm","","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$C0DCC0
+ModifiedDateTime=20201208205818
+Position="MAIN",2100,800,716,305
+ZOrder=5
+
+[Entity]
+PName=code_mst
+LName=コードマスタ
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=250
+Field="グループ","group","@CHAR(4)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="コード","code","@CHAR(10)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="値","value","@VARCHAR(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="ソート順","order","@DECIMAL(4)",,,"","",$FFFFFFFF,""
+Field="グループ名","group_name","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="コード名","code_name","",,,"","",$FFFFFFFF,""
+Field="表示名","display_name","",,,"","",$FFFFFFFF,""
+Field="説明","description","",,,"","",$FFFFFFFF,""
+Index==1,group,value
+Index==1,group,code,order
+EffectMode=None
+Color=$000080
+BkColor=$FFFFFF
+ModifiedDateTime=20201211165733
+Position="MAIN",200,250,621,305
+ZOrder=6
+
+[Relation]
+Entity1=stock
+Entity2=trade
+RelationType1=2
+RelationType2=3
+Fields1=stock_id
+Fields2=stock_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1090,8810,1880,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20201208195647
+LineMode=0
+Bar1=109
+Bar2=881
+Bar3=188
+TermPos1=R
+TermPos2=R
+ZOrder=9
+
+[Relation]
+Entity1=stock
+Entity2=dividend
+RelationType1=2
+RelationType2=3
+Fields1=stock_id
+Fields2=stock_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2690,7310,1801,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20201208195634
+LineMode=0
+Bar1=269
+Bar2=731
+Bar3=180
+TermPos1=R
+TermPos2=R
+ZOrder=10
+
+[Relation]
+Entity1=rate
+Entity2=dividend
+RelationType1=2
+RelationType2=3
+Fields1=base_date,currency_code
+Fields2=receipt_date,currency_code
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4975,7310,8087,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20201208205155
+LineMode=0
+Bar1=498
+Bar2=731
+Bar3=809
+TermPos1=R
+TermPos2=R
+ZOrder=13
+
+[Entity]
+PName=receipt_stock_spec
+LName=入金銘柄特定
+Comment=
+TableOption=
+Page=MAIN
+Left=150
+Top=700
+Field="入金機関ID","receipt_org_id","@CHAR(4)",,0,"","",$FFFFFFFF,""
+Field="入金摘要文言","receipt_description","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="銘柄ID","stock_id","@DECIMAL(10)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$800000
+BkColor=$FFFFFF
+ModifiedDateTime=20201211165207
+Position="MAIN",150,700,778,205
+ZOrder=14
+
+[Relation]
+Entity1=receipt_stock_spec
+Entity2=stock
+RelationType1=4
+RelationType2=2
+Fields1=stock_id
+Fields2=stock_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2278,7722,2086,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20201208214239
+LineMode=0
+Bar1=228
+Bar2=772
+Bar3=209
+TermPos1=R
+TermPos2=R
+ZOrder=16

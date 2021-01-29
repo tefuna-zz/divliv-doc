@@ -47,7 +47,7 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
-PName=stock
+PName=pfm.stock
 LName=銘柄
 Comment=
 TableOption=
@@ -69,12 +69,12 @@ Index==1,ticker,country
 EffectMode=Gradation
 Color=$800000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128112512
-Position="MAIN",1550,1350,806,520
+ModifiedDateTime=20210129180801
+Position="MAIN",1550,1350,897,450
 ZOrder=1
 
 [Entity]
-PName=dividend_income
+PName=pfm.dividend_income
 LName=配当収入
 Comment=配当実績と入金実績を管理する。\n
 TableOption=
@@ -91,12 +91,12 @@ Index==1,stock_id,receipt_date
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128183345
+ModifiedDateTime=20210129180747
 Position="MAIN",1400,800,955,283
 ZOrder=2
 
 [Entity]
-PName=exchange_rate
+PName=pfm.exchange_rate
 LName=為替レート
 Comment=
 TableOption=
@@ -111,12 +111,12 @@ Index==1,base_date,currency
 EffectMode=None
 Color=$800000
 BkColor=$FFFFFF
-ModifiedDateTime=20210110224821
+ModifiedDateTime=20210129180740
 Position="MAIN",450,650,618,233
 ZOrder=3
 
 [Entity]
-PName=trade
+PName=pfm.trade
 LName=取引
 Comment=
 TableOption=
@@ -137,12 +137,12 @@ Field="金融機関コード","bank_code","@CHAR(4)","NOT NULL",,"","証券会�
 EffectMode=None
 Color=$000080
 BkColor=$FFFFFF
-ModifiedDateTime=20210128182746
+ModifiedDateTime=20210129180806
 Position="MAIN",2800,1150,833,463
 ZOrder=5
 
 [Entity]
-PName=code_mst
+PName=pfm.code_mst
 LName=コードマスタ
 Comment=
 TableOption=
@@ -157,18 +157,17 @@ Field="グループ名","group_name","@VARCHAR(255)",,,"","",$FFFFFFFF,""
 Field="コード名","code_name","@VARCHAR(255)",,,"","",$FFFFFFFF,""
 Field="表示名","display_name","@VARCHAR(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="説明","description","@VARCHAR(255)",,,"","",$FFFFFFFF,""
-Index==1,group,value
-Index==1,group,code,sort_order
+Index==1,group ,code ,sort_order 
 EffectMode=None
-Color=$000080
+Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210125202650
+ModifiedDateTime=20210129180732
 Position="MAIN",100,250,860,304
 ZOrder=6
 
 [Relation]
-Entity1=stock
-Entity2=trade
+Entity1=pfm.stock
+Entity2=pfm.trade
 RelationType1=2
 RelationType2=3
 Fields1=stock_id
@@ -189,8 +188,8 @@ TermPos2=R
 ZOrder=9
 
 [Relation]
-Entity1=stock
-Entity2=dividend_income
+Entity1=pfm.stock
+Entity2=pfm.dividend_income
 RelationType1=2
 RelationType2=3
 Fields1=stock_id
@@ -211,8 +210,8 @@ TermPos2=R
 ZOrder=10
 
 [Relation]
-Entity1=exchange_rate
-Entity2=dividend_income
+Entity1=pfm.exchange_rate
+Entity2=pfm.dividend_income
 RelationType1=2
 RelationType2=3
 Fields1=rate_id
@@ -233,7 +232,7 @@ TermPos2=R
 ZOrder=13
 
 [Entity]
-PName=receipt_stock_spec
+PName=pfm.receipt_stock_spec
 LName=入金銘柄特定
 Comment=
 TableOption=
@@ -246,13 +245,13 @@ Field="銘柄ID","stock_id","@DECIMAL(10)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$800000
 BkColor=$FFFFFF
-ModifiedDateTime=20201211165207
+ModifiedDateTime=20210129180814
 Position="MAIN",200,2200,778,205
 ZOrder=14
 
 [Relation]
-Entity1=receipt_stock_spec
-Entity2=stock
+Entity1=pfm.receipt_stock_spec
+Entity2=pfm.stock
 RelationType1=4
 RelationType2=2
 Fields1=stock_id
@@ -273,7 +272,7 @@ TermPos2=R
 ZOrder=16
 
 [Entity]
-PName=position
+PName=pfm.position
 LName=ポジション
 Comment=
 TableOption=
@@ -290,17 +289,17 @@ Field="現在単価","current_price","@DECIMAL(15, 6)","NOT NULL",,"","",$FFFFFF
 Field="取得額","book_value","@DECIMAL(15, 6)","NOT NULL",,"","計算項目",$FFFFFFFF,""
 Field="評価額","market_value","@DECIMAL(15, 6)","NOT NULL",,"","計算項目",$FFFFFFFF,""
 Field="評価損益額","valuation_pl_value","@DECIMAL(15, 6)","NOT NULL",,"","計算項目",$FFFFFFFF,""
-Field="評価損益率","valuation_pl_ratio","@DECIMAL(3, 2)","NOT NULL",,"","計算項目",$FFFFFFFF,""
+Field="評価損益率","valuation_pl_ratio","@DECIMAL(5, 2)","NOT NULL",,"","計算項目",$FFFFFFFF,""
 Index==1,stock_id ,bank_code ,base_date 
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128184011
+ModifiedDateTime=20210129180820
 Position="MAIN",2750,1750,934,402
 ZOrder=17
 
 [Entity]
-PName=bank
+PName=pfm.bank
 LName=金融機関マスタ
 Comment=
 TableOption=
@@ -315,13 +314,13 @@ Field="SWIFTコード","swift_code","@VARCHAR(11)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$800000
 BkColor=$FFFFFF
-ModifiedDateTime=20210126005227
+ModifiedDateTime=20210129180817
 Position="MAIN",1650,2150,835,200
 ZOrder=18
 
 [Relation]
-Entity1=stock
-Entity2=position
+Entity1=pfm.stock
+Entity2=pfm.position
 RelationType1=2
 RelationType2=3
 Fields1=stock_id
@@ -342,8 +341,8 @@ TermPos2=R
 ZOrder=19
 
 [Relation]
-Entity1=bank
-Entity2=position
+Entity1=pfm.bank
+Entity2=pfm.position
 RelationType1=2
 RelationType2=3
 Fields1=bank_code
@@ -382,7 +381,7 @@ Position="MAIN",150,2550,748,155
 ZOrder=21
 
 [Entity]
-PName=dividend
+PName=pfm.dividend
 LName=配当
 Comment=
 TableOption=
@@ -404,7 +403,7 @@ Index==1,div_id,expected_div_date
 EffectMode=Gradation
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128184849
+ModifiedDateTime=20210129180754
 Position="MAIN",2650,500,1146,455
 ZOrder=23
 
@@ -443,11 +442,11 @@ Width=765
 Height=315
 
 [Entity]
-PName=stock_history
+PName=pfm.stock_history
 LName=銘柄履歴
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=100
 Top=1600
 Field="銘柄ID","stock_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
@@ -468,13 +467,13 @@ Index==1,ticker,country
 EffectMode=Gradation
 Color=$808000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128113242
-Position="Main",100,1600,955,508
+ModifiedDateTime=20210129180809
+Position="MAIN",100,1600,955,508
 ZOrder=27
 
 [Relation]
-Entity1=stock_history
-Entity2=stock
+Entity1=pfm.stock_history
+Entity2=pfm.stock
 RelationType1=3
 RelationType2=2
 Fields1=stock_id
@@ -495,11 +494,11 @@ TermPos2=R
 ZOrder=28
 
 [Entity]
-PName=stock_market
+PName=pfm.stock_market
 LName=銘柄市況
 Comment=銘柄の日別のマーケットデータを管理する。
 TableOption=
-Page=Main
+Page=MAIN
 Left=500
 Top=1150
 Field="銘柄市況ID","stock_market_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
@@ -514,13 +513,13 @@ Index==1,div_amount_total_local,div_yield
 EffectMode=Gradation
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210128183947
-Position="Main",500,1150,818,323
+ModifiedDateTime=20210129180758
+Position="MAIN",500,1150,818,323
 ZOrder=29
 
 [Relation]
-Entity1=dividend
-Entity2=stock
+Entity1=pfm.dividend
+Entity2=pfm.stock
 RelationType1=3
 RelationType2=2
 Fields1=stock_id
@@ -541,8 +540,8 @@ TermPos2=R
 ZOrder=31
 
 [Relation]
-Entity1=stock_market
-Entity2=exchange_rate
+Entity1=pfm.stock_market
+Entity2=pfm.exchange_rate
 RelationType1=3
 RelationType2=2
 Fields1=rate_id
@@ -563,11 +562,11 @@ TermPos2=R
 ZOrder=33
 
 [Entity]
-PName=dividend_history
+PName=pfm.dividend_history
 LName=配当履歴
 Comment=配当の履歴テーブル。
 TableOption=
-Page=Main
+Page=MAIN
 Left=2650
 Top=50
 Field="配当ID","div_id","serial","NOT NULL",0,"","",$FFFFFFFF,""
@@ -583,13 +582,13 @@ Index==1,div_id ,expected_div_date
 EffectMode=Gradation
 Color=$000080
 BkColor=$FFFFFF
-ModifiedDateTime=20210128182738
-Position="Main",2650,50
+ModifiedDateTime=20210129180751
+Position="MAIN",2650,50
 ZOrder=35
 
 [Relation]
-Entity1=stock
-Entity2=stock_market
+Entity1=pfm.stock
+Entity2=pfm.stock_market
 RelationType1=2
 RelationType2=3
 Fields1=stock_id
